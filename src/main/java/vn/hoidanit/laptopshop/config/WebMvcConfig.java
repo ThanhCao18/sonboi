@@ -23,6 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return bean;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.viewResolver(viewResolver());
