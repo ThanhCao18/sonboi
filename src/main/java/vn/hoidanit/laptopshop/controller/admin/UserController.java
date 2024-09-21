@@ -1,22 +1,27 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.multipart.MultipartFile;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final UploadService uploadService ;
 
     public UserController(
-            UserService userService) {
+            UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @RequestMapping("/")
@@ -44,7 +49,7 @@ public class UserController {
         return "admin/user/detail";
     }
 
-    @RequestMapping("/admin/user/create") // GET
+    @GetMapping("/admin/user/create") // GET
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
@@ -75,8 +80,9 @@ public class UserController {
         return "redirect:/admin/user";
     }
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User hoidanit) {
-        this.userService.handleSaveUser(hoidanit);
+    public String createUserPage(Model model, @ModelAttribute("newUser") User hoidanit,
+            @RequestParam("uploadFile") MultipartFile file) throws IOException {
+       String avatar = this.uploadService.handleSaveUploadFile(file,"avatar");
         return "redirect:/admin/user";
     }
 }
