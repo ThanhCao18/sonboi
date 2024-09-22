@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="Hỏi Dân IT - Dự án laptopshop"/>
     <meta name="author" content="Hỏi Dân IT"/>
-    <title>Table User - Hỏi Dân IT</title>
+    <title>Table User</title>
     <link href="/css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -24,7 +24,7 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Manage User</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a> </li>
+                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                     <li class="breadcrumb-item active">User</li>
 
                 </ol>
@@ -44,6 +44,7 @@
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Full Name</th>
+                                    <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -54,6 +55,7 @@
                                         <th>${user.id}</th>
                                         <td>${user.email}</td>
                                         <td>${user.fullName}</td>
+                                        <td>${user.role.name}</td>
                                         <td>
                                             <a
                                                     href="/admin/user/${user.id}"
@@ -85,7 +87,7 @@
 </div>
 <script>
     function Delete(id) {
-        if (confirm("Xac nhan xoa")){
+        if (confirm("Xac nhan xoa")) {
             window.location.href = "/admin/user/delete/" + id
         }
     }

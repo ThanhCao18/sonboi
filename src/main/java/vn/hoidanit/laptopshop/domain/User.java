@@ -1,8 +1,17 @@
 package vn.hoidanit.laptopshop.domain;
 
-import jakarta.persistence.*;
-
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
+
 
 @Entity
 @Table(name = "Users")
@@ -12,13 +21,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @Email
     private String email;
-
+    @NotNull
+    @Min(3)
     private String password;
+    @NotNull
     private String fullName;
+    @NotNull
     private String address;
-    private String phone;
 
+    @NotNull
+    private String phone;
     private String avatar;
 
     //roleId
@@ -104,7 +119,7 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phone + ", avatar ="+ avatar +"]";
+                + ", address=" + address + ", phone=" + phone + ", avatar =" + avatar + "]";
     }
 
 }

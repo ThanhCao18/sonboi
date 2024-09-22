@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="Hỏi Dân IT - Dự án laptopshop"/>
     <meta name="author" content="Hỏi Dân IT"/>
-    <title>View User - Hỏi Dân IT</title>
+    <title>View User </title>
     <link href="/css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -47,6 +47,7 @@
                                     <li class="list-group-item">FullName: ${user.fullName}</li>
                                     <li class="list-group-item">Address: ${user.address}</li>
                                     <li class="list-group-item">Phone: ${user.phone}</li>
+                                    <li class="list-group-item">Role: ${user.role.name}</li>
                                 </ul>
                             </div>
                             <a href="/admin/user" class="btn btn-primary" style="margin-top: 10px">Back</a>
