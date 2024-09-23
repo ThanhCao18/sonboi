@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
+import vn.hoidanit.laptopshop.service.validator.validator.StrongPassword;
 
 
 @Entity
@@ -25,7 +26,7 @@ public class User {
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
     @NotNull
-    @NotEmpty(message = "Password must not be left bank")
+    @StrongPassword
     private String password;
     @NotNull
     @NotEmpty(message = "Full Name must not be left blank")
