@@ -91,11 +91,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User hoidanit, BindingResult bindingResult,
+    public String createUserPage(Model model, @ModelAttribute("newUser") @Valid User hoidanit, BindingResult newUserBindingResult,
                                  @RequestParam("uploadFile") MultipartFile file) throws IOException {
-        List<FieldError> errors = bindingResult.getFieldErrors();
-        for(FieldError error : errors){
-            System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
+//        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+//        for(FieldError error : errors){
+//            System.out.println(">>>>"+error.getField() + " - " + error.getDefaultMessage());
+//        }
+
+        if(newUserBindingResult.hasErrors()){
+            return "admin/user/create";
         }
 
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");

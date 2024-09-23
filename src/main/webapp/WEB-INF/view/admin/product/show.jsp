@@ -24,7 +24,7 @@
                 <h1 class="mt-4">Manage Products</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Products</li>
+                    <li class="breadcrumb-item active">Product</li>
                 </ol>
                 <div class="mt-5">
                     <div class="row">
@@ -46,16 +46,25 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!-- <c:forEach var="user" items="${users1}">
-                                                    <tr>
-                                                        <th>${user.id}</th>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.fullName}</td>
-                                                        <td>${user.role.name}</td>
+                                <c:forEach var="product" items="${products}">
+                                    <tr>
+                                        <th>${product.id}</th>
+                                        <td>${product.name}</td>
+                                        <td>${product.price}</td>
+                                        <td>${product.factory}</td>
+                                        <td>
+                                            <a href="/admin/product/${product.id}"
+                                               class="btn btn-success">View</a>
+                                            <a href="/admin/product/update/${product.id}"
+                                               class="btn btn-warning  mx-2">Update</a>
+                                            <button
+                                                    onclick="Delete(${product.id})"
+                                                    class="btn btn-danger">Delete
+                                            </button>
+                                        </td>
+                                    </tr>
 
-                                                    </tr>
-
-                                                </c:forEach> -->
+                                </c:forEach>
 
                                 </tbody>
                             </table>
@@ -69,6 +78,13 @@
         <jsp:include page="../layout/footer.jsp" />
     </div>
 </div>
+<script>
+    function Delete(id) {
+        if (confirm("Xac nhan xoa")) {
+            window.location.href = "/admin/product/delete/" + id
+        }
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>

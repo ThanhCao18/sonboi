@@ -22,17 +22,19 @@ public class User {
     private long id;
 
     @NotNull
-    @Email
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
     @NotNull
-    @Min(3)
+    @NotEmpty(message = "Password must not be left bank")
     private String password;
     @NotNull
+    @NotEmpty(message = "Full Name must not be left blank")
     private String fullName;
     @NotNull
     private String address;
 
     @NotNull
+    @Min(value = 10, message = "Phone Number must have at least 10 characters")
     private String phone;
     private String avatar;
 

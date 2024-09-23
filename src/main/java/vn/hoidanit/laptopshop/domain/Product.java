@@ -1,8 +1,11 @@
 package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.List;
 
 @Entity
 @Table(name = "Products")
@@ -12,10 +15,22 @@ public class Product {
 
     private long id;
 
+    @NotNull
+    @NotEmpty(message = "Product name must not be left blank")
     private String name;
+
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Price must be greater than 0")
     private double price;
     private String image;
+
+    @NotNull
+    @NotEmpty(message = "Detail Description must not be left blank")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
+    @NotNull
+    @NotEmpty(message = "Short Description must not be left blank")
     private String shortDesc;
     private long quantity;
     private long sold;
