@@ -1,10 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="/homepage" class="navbar-brand">
+                    <a href="/" class="navbar-brand">
                         <h1 class="text-primary display-6">Laptopshop</h1>
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -13,7 +14,7 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="/homepage" class="nav-item nav-link active">Trang Chủ</a>
+                            <a href="/" class="nav-item nav-link active">Trang Chủ</a>
                             <a href="/products" class="nav-item nav-link">Sản Phẩm</a>
 
                         </div>
@@ -28,6 +29,7 @@
                                     </span>
                                 </a>
                                 <div class="dropdown my-auto">
+                                    <c:if test="${not empty pageContext.request.userPrincipal}">
                                     <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
                                         data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="dropdown"
                                         aria-expanded="false">
@@ -57,6 +59,7 @@
                                             </form>
                                         </li>
                                     </ul>
+                                    </c:if>
                                 </div>
                             </c:if>
                             <c:if test="${empty pageContext.request.userPrincipal}">

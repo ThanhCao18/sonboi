@@ -30,7 +30,7 @@ public class HomePageController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/homepage")
+    @GetMapping("/")
     public String getHomePage(Model model){
         List<Product> products = this.productService.fetchProducts();
         model.addAttribute("products", products);
@@ -63,5 +63,10 @@ public class HomePageController {
     @GetMapping("/login")
     public String getLoginPage(Model model){
         return "client/auth/login";
+    }
+
+    @GetMapping("/access-deny")
+    public String getDenyPage(Model model){
+        return "client/auth/deny";
     }
 }
