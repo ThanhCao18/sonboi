@@ -3,6 +3,9 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,9 +35,16 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getProduct(Model model) {
-        List<Product> prs = this.productService.fetchProducts();
-        model.addAttribute("products", prs);
+    public String getProduct(Model model,
+                             @RequestParam("page") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 3);
+        Page<Product> prs = this.productService.fetchProducts(pageable);
+        List<Product> listProducts = prs.getContent();
+        model.addAttribute("products", listProducts);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", prs.getTotalPages());
+
         return "admin/product/show";
     }
 
@@ -48,7 +58,7 @@ public class ProductController {
     public String handleCreateProduct(
             @ModelAttribute("newProduct") @Valid Product pr,
             BindingResult newProductBindingResult,
-            @RequestParam("uploadFile") MultipartFile file) {
+            @RequestParam("hoidanitFile") MultipartFile file) {
         // validate
         if (newProductBindingResult.hasErrors()) {
             return "admin/product/create";
@@ -73,7 +83,7 @@ public class ProductController {
     @PostMapping("/admin/product/update")
     public String handleUpdateProduct(@ModelAttribute("newProduct") @Valid Product pr,
                                       BindingResult newProductBindingResult,
-                                      @RequestParam("uploadFile") MultipartFile file) {
+                                      @RequestParam("hoidanitFile") MultipartFile file) {
 
         // validate
         if (newProductBindingResult.hasErrors()) {
@@ -107,7 +117,6 @@ public class ProductController {
         this.productService.deleteProduct(pr.getId());
         return "redirect:/admin/product";
     }
-
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetailPage(Model model, @PathVariable long id) {
