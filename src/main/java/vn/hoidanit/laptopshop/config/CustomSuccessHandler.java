@@ -63,7 +63,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     }
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 
     @Override

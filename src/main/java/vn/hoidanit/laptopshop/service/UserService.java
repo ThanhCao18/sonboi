@@ -53,7 +53,7 @@ public class UserService {
         return this.roleRepository.findByName(name);
     }
 
-    public void deleteUser(long id){
+    public void deleteUser(long id) {
         this.userRepository.deleteById(id);
     }
 
@@ -69,19 +69,29 @@ public class UserService {
         return this.userRepository.existsByEmail(email);
     }
 
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
     }
 
-    public long countUsers(){
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void changeUserPassword(User user, String newPassword) {
+        user.setPassword(newPassword);
+        userRepository.save(user);
+    }
+
+
+    public long countUsers() {
         return this.userRepository.count();
     }
 
-    public long countProducts(){
+    public long countProducts() {
         return this.productRepository.count();
     }
 
-    public long countOrders(){
+    public long countOrders() {
         return this.orderRepository.count();
     }
 }

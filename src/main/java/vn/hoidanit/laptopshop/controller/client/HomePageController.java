@@ -9,9 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -105,4 +103,11 @@ public class HomePageController {
         return "client/cart/order-history";
     }
 
+  @RequestMapping("/userDetail/{id}")
+    public String getUserPage(Model model, @PathVariable long id){
+        User user = this.userService.getUserById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("id", id);
+        return "client/user/userDetail";
+  }
 }
