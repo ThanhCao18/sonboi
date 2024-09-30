@@ -28,6 +28,10 @@ public class PasswordResetToken {
         this.expiryDate = calculateExpiryDate(30);
     }
 
+    public PasswordResetToken() {
+
+    }
+
     private Date calculateExpiryDate(int expriryTimeInMinutes){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Timestamp(calendar.getTime().getTime()));
@@ -42,5 +46,33 @@ public class PasswordResetToken {
 
     public User getUser() {
         return null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

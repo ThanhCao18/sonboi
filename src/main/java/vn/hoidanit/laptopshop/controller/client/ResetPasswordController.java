@@ -30,18 +30,24 @@ public class ResetPasswordController {
         return "client/auth/forgotPassword";
     }
 
-    @RequestMapping("/reset-password")
+    @PostMapping ("/reset-password")
     public String processForgotPassword(@RequestParam("email") String email, Model model){
         User user = userService.findUserByEmail(email);
+        String message = "";
         if(user != null){
             String token = UUID.randomUUID().toString();
             userService.createPasswordResetToken(user, token);
 
-            String resetUrl = "http://localhost:8080/reset-password?token=" + token;
+            String resetUrl = "http://localhost:8080/resetpassword?token=" + token;
             emailService.sendPasswordResetEmail(user.getEmail(), resetUrl);
-            model.addAttribute("message", "Link đặt lại đã được gửi đến email của bạn");
+            message = "Link đặt lại đã được gửi đến email của bạn";
+
+            model.addAttribute("message", message);
         }else {
-            model.addAttribute("error", "Không tìm thấy người dùng với email trên");
+
+            message = "Email người dùng không tồn tại";
+
+            model.addAttribute("message", message);
         }
         return "client/auth/forgotPassword";
     }
@@ -59,4 +65,19 @@ public class ResetPasswordController {
         model.addAttribute("message", "Mật khẩu được đặt lại thành công");
         return "client/auth/updatePassword";
     }
+
+    @GetMapping("/resetpassword")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        System.out.println("Token nhận được: " + token);
+        PasswordResetToken resetToken = this.userService.findByToken(token);
+
+        if (resetToken == null) {
+            model.addAttribute("error", "Token không hợp lệ hoặc đã hết hạn.");
+            return "client/auth/forgotPassword";
+        }
+
+        model.addAttribute("token", token);
+        return "client/auth/updatePassword";
+    }
+
 }

@@ -91,8 +91,24 @@ public class UserService {
     }
 
     public void createPasswordResetToken(User user, String token){
-        PasswordResetToken resetToken = new PasswordResetToken(token, user);
-        tokenRepository.save(resetToken);
+
+        try {
+
+            this.tokenRepository.deleteById(tokenRepository.findByUser(user).getId());
+            PasswordResetToken resetToken = new PasswordResetToken(token, user);
+            tokenRepository.save(resetToken);
+        }
+        catch (Exception e)
+        {
+            System.out.println("lỗi tại đây");
+            System.out.println(e.getMessage());
+            System.out.println(e.toString());
+        }
+    }
+    public PasswordResetToken findByToken(String token)
+    {
+        return this.tokenRepository.findByToken(token);
+
     }
 
     public void updatePassword(User user, String newPassword){

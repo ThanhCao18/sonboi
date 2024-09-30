@@ -11,7 +11,7 @@
 </head>
 <body>
 <h2>Đặt lại mật khẩu</h2>
-<form action="/reset-password" method="post">
+<form action="/update-password" method="post">
     <input type="hidden" name="token" value="${token}">
     <label for="password">Nhập mật khẩu mới:</label>
     <input type="password" id="password" name="password" required>

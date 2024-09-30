@@ -11,10 +11,17 @@ public class EmailService {
     private JavaMailSender mailSender;
 
     public void sendPasswordResetEmail(String toEmail, String resetUrl){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(toEmail);
-        message.setSubject("Đặt lại mật khẩu");
-        message.setText("Click vào link sau để đặt lại mật khẩu");
-        mailSender.send(message);
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(toEmail);
+            message.setSubject("Đặt lại mật khẩu");
+            message.setText("Click vào link sau để đặt lại mật khẩu" + resetUrl);
+            mailSender.send(message);
+        }
+        catch (Exception e)
+        {
+           System.out.println(e.getMessage());
+           System.out.println("lỗi đây");
+        }
     }
 }
