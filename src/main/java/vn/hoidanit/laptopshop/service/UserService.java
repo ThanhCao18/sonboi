@@ -2,15 +2,15 @@ package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import vn.hoidanit.laptopshop.domain.PasswordResetToken;
 import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
-import vn.hoidanit.laptopshop.repository.OrderRepository;
-import vn.hoidanit.laptopshop.repository.ProductRepository;
-import vn.hoidanit.laptopshop.repository.RoleRepository;
-import vn.hoidanit.laptopshop.repository.UserRepository;
+import vn.hoidanit.laptopshop.repository.*;
 
 @Service
 public class UserService {
@@ -18,13 +18,17 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    public final PasswordResetTokenRepository tokenRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository, ProductRepository productRepository, OrderRepository orderRepository) {
+                       RoleRepository roleRepository, ProductRepository productRepository, OrderRepository orderRepository, PasswordResetTokenRepository tokenRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.tokenRepository = tokenRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUsers() {
@@ -43,10 +47,6 @@ public class UserService {
 
     public User getUserById(long id) {
         return this.userRepository.findById(id);
-    }
-
-    public void deleteAUser(long id) {
-        this.userRepository.deleteById(id);
     }
 
     public Role getRoleByName(String name) {
@@ -77,11 +77,6 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public void changeUserPassword(User user, String newPassword) {
-        user.setPassword(newPassword);
-        userRepository.save(user);
-    }
-
 
     public long countUsers() {
         return this.userRepository.count();
@@ -93,5 +88,15 @@ public class UserService {
 
     public long countOrders() {
         return this.orderRepository.count();
+    }
+
+    public void createPasswordResetToken(User user, String token){
+        PasswordResetToken resetToken = new PasswordResetToken(token, user);
+        tokenRepository.save(resetToken);
+    }
+
+    public void updatePassword(User user, String newPassword){
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }

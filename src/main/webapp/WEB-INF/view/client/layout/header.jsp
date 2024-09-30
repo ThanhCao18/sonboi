@@ -45,7 +45,7 @@
                                             </div>
                                         </li>
 
-                                        <li><a class="dropdown-item" href="/userDetail/${user.id}">Quản lý tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="/userDetail/${sessionScope.id}">Quản lý tài khoản</a></li>
 
                                         <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
                                         <li>

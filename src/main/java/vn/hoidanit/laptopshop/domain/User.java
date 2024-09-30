@@ -38,6 +38,10 @@ public class User {
     @OneToOne
     private Cart cart;
 
+    @OneToOne
+    private PasswordResetToken passwordResetToken;
+
+
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
@@ -121,5 +125,13 @@ public class User {
     }
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public PasswordResetToken getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(PasswordResetToken passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
     }
 }

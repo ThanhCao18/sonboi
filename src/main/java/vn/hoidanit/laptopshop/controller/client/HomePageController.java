@@ -110,4 +110,6 @@ public class HomePageController {
         model.addAttribute("id", id);
         return "client/user/userDetail";
   }
+
+
 }
